@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Century Gothic;
+
+}
+
+
+
+
+
+#startpage {
+    height: 100vh;
+    background-image: url(../images/home.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    color: #ffffff;
+}
+
+/*HEADER VIDEO - snippet er taget fra: https://codepen.io/vkjgr/pen/myLoGX*/
+
+.fullscreen-header {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+
+.video-header {
+    display: block;
+    left: 0px;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    /* 56.25% = 16:9. set ratio */
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    -webkit-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.video-header .wrapper-header {
+    display: block;
+    height: 300%;
+    left: 0px;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.video-header iframe {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.video-text {
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 50rem;
+    font-size: 20px;
+    z-index: 1;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
+    margin-top: 250px;
+    border: 1px solid white;
+    width: 230px;
+    padding: 15px;
+       cursor: pointer;
+}
+
+.video-text a {
+    text-decoration: none;
+    color: white;
+       cursor: pointer;
+}
+
+.video-text:hover {
+   background-color: #3c6076;
+    transition: 1s;
+    cursor: pointer;
+}
+
+
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+/*KORT*/
+
+#map {
+    position: fixed;
+    width: 50%;
+}
+
+#features {
+    width: 50%;
+    margin-left: 50%;
+    font-family: sans-serif;
+    overflow-y: scroll;
+    background-color: #7f7f7e30;
+}
+
+#fifth{
+    margin-bottom: 600px;
+}

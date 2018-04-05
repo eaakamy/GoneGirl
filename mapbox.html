@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>GONE GIRL</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/mapbox.css" type="text/css">
+</head>
+
+<body>
+    <style>
+        section {
+             font-family: Century Gothic;
+            padding: 25px 50px;
+            line-height: 25px;
+            border-bottom: 1px solid #ddd;
+            opacity: 0.25;
+            font-size: 15px;
+        }
+
+        section.active {
+            opacity: 1;
+        }
+
+        section:last-child {
+            border-bottom: none;
+            margin-bottom: 200px;
+        }
+    </style>
+    <div id="content">
+        <div id='map'></div>
+        <div id='features'>
+            <section id='first' class='active'>
+               
+                <p>Nick møder Amy i New York. Begge er journalister. De gifter sig og flytter ind i en stor hus på Manhattan.</p>
+                <img src="images/scenes/meeting.png" width="700px">
+                 <img src="images/scenes/meeting2.png" width="700px">
+            </section>
+            <section id='second'>
+
+                <p>Alt er godt, indtil krisen rammer. Nick og Amy bliver fyret og de flytter til Nicks fødeby ved Missouri, hvor hans forældre bor og hvor de kan få et billigt hus.</p>
+                     <img src="images/scenes/moving2.png" width="700px">
+                 <img src="images/scenes/miss.png" width="700px">
+            </section>
+            <section id='third'>
+      
+                <p> Nick sætter resten af Amys formue i en bar, som han driver sammen med sin søster.</p>
+                    <img src="images/scenes/bar.png" width="700px">
+                 <img src="images/scenes/bar2.png" width="700px">
+            </section>
+            <section id='fourth'>
+         
+                <p>Efter et styk tid, går det galt. De taler ikke sammen uden at skændes, Amy finder ud af, at han har en anden, men siger ikke noget… Og på deres 5-års bryllupsdag forsvinder Amy fra huset efter tegn på kamp...</p>
+                           <img src="images/scenes/fight.png" width="700px">
+                 <img src="images/scenes/kamp.png" width="700px">
+            </section>
+            <section id='fifth'>
+ 
+                <p> Nick går til politiet for at rapportere sin forsvundne kone, men han er den største mistænkte... Mens alle naboer er i gang med at lede efter Nicks kone, Amy er allerede kørt til Los Angeles...</p>
+                   <img src="images/scenes/people.png" width="700px">
+                 <img src="images/scenes/la.png" width="700px">
+            </section>
+        </div>
+    </div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZWFha2FteSIsImEiOiJjamZqZDJ2NHA2a2ZzMzRwZHp5ZzZmY3NkIn0.t7TXgFlFYulobVSRFTqXAg';
+
+        /*Start position*/
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/eaakamy/cjfmiahvb0z6y2rqubxc5xr1y',
+            center: [-73.981,40.765],
+            zoom: 15.5,
+            bearing: 27,
+            pitch: 45
+        });
+        // The 'building' layer in the mapbox-streets vector source contains building-height
+// data from OpenStreetMap.
+map.on('load', function() {
+    // Insert the layer beneath any symbol layer.
+    var layers = map.getStyle().layers;
+
+    var labelLayerId;
+    for (var i = 0; i < layers.length; i++) {
+        if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
+            labelLayerId = layers[i].id;
+            break;
+        }
+    }
+
+    map.addLayer({
+        'id': '3d-buildings',
+        'source': 'composite',
+        'source-layer': 'building',
+        'filter': ['==', 'extrude', 'true'],
+        'type': 'fill-extrusion',
+        'minzoom': 15,
+        'paint': {
+            'fill-extrusion-color': '#aaa',
+
+            // use an 'interpolate' expression to add a smooth transition effect to the
+            // buildings as the user zooms in
+            'fill-extrusion-height': [
+                "interpolate", ["linear"], ["zoom"],
+                15, 0,
+                15.05, ["get", "height"]
+            ],
+            'fill-extrusion-base': [
+                "interpolate", ["linear"], ["zoom"],
+                15, 0,
+                15.05, ["get", "min_height"]
+            ],
+            'fill-extrusion-opacity': .6
+        }
+    }, labelLayerId);
+});
+
+        var chapters = {
+            'first': {
+                bearing: 27,
+                center: [-73.981,40.765],
+                zoom: 15.5,
+                pitch: 20
+            },
+            'second': {
+                duration: 7000,
+                center: [-92.686905,38.374909],
+                bearing: 150,
+                zoom: 6,
+                 pitch: 20
+            },
+            'third': {
+                bearing: 90,
+                center: [-89.519,37.305],
+                zoom: 15.5,
+                speed: 0.6,
+                pitch: 20
+            },
+            'fourth': {
+                duration: 7000,
+                center: [-92.686905,38.374909],
+                bearing: 150,
+                zoom: 6,
+                 pitch: 20
+            },
+            'fifth': {
+                bearing: 45,
+                center: [-118.249410, 34.056071],
+                zoom: 10,
+                pitch: 20,
+                speed: 0.5
+            },
+            'caulfield-gardens': {
+                bearing: 180,
+                center: [-0.19684993, 51.5033856],
+                zoom: 12.3
+            },
+            'telegraph': {
+                bearing: 90,
+                center: [-0.10669358, 51.51433123],
+                zoom: 17.3,
+                pitch: 40
+            },
+            'charing-cross': {
+                bearing: 90,
+                center: [-0.12416858, 51.50779757],
+                zoom: 14.3,
+                pitch: 20
+            }
+        };
+
+        // On every scroll event, check which element is on screen
+        window.onscroll = function() {
+            var chapterNames = Object.keys(chapters);
+            for (var i = 0; i < chapterNames.length; i++) {
+                var chapterName = chapterNames[i];
+                if (isElementOnScreen(chapterName)) {
+                    setActiveChapter(chapterName);
+                    break;
+                }
+            }
+        };
+
+        var activeChapterName = 'first';
+
+        function setActiveChapter(chapterName) {
+            if (chapterName === activeChapterName) return;
+
+            map.flyTo(chapters[chapterName]);
+
+            document.getElementById(chapterName).setAttribute('class', 'active');
+            document.getElementById(activeChapterName).setAttribute('class', '');
+
+            activeChapterName = chapterName;
+        }
+
+        function isElementOnScreen(id) {
+            var element = document.getElementById(id);
+            var bounds = element.getBoundingClientRect();
+            return bounds.top < window.innerHeight && bounds.bottom > 0;
+        }
+    </script>
+
+</body>
+
+</html>
